@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
+
+DROP TABLE IF EXISTS status;
+CREATE TABLE status (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+DROP TABLE IF EXISTS tasks;
+CREATE TABLE tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR(100) UNIQUE NOT NULL,
+    description text NULL,
+    status_id INTEGER not null,
+    user_id INTEGER not null,
+    FOREIGN KEY (status_id) REFERENCES status (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
